@@ -31,7 +31,7 @@ public class VersionTranslationProxyTestCase extends FunctionalTestCase {
 						newOrderSingle, null);
 		MuleMessage result;
 		quickfix.fix42.ExecutionReport report;
-		result=client.request("vm://out", 5000);
+		result=client.request("vm://out", 10000);
 		assertNotNull(result);
 		assertNotNull(result.getPayload());
 		assertTrue(result.getPayload() instanceof quickfix.fix42.ExecutionReport);
@@ -57,7 +57,7 @@ public class VersionTranslationProxyTestCase extends FunctionalTestCase {
 
 	@Override
 	protected String getConfigResources() {
-		return "examples/src/main/resources/versiontranslationproxy/mule-config.xml,examples/src/test/resources/versiontranslationproxy/executor-mule-config.xml,examples/src/test/resources/versiontranslationproxy/vm-as-banzai-mule-config.xml";
+		return "examples/src/test/resources/versiontranslationproxy/executor-mule-config.xml,examples/src/main/resources/versiontranslationproxy/mule-config.xml,examples/src/test/resources/versiontranslationproxy/vm-as-banzai-mule-config.xml";
 	}
 
 }
