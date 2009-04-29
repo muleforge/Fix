@@ -235,6 +235,7 @@
 			<groupId>org.mule.tests</groupId>
 			<artifactId>mule-tests-functional</artifactId>
 			<version>${mule.version}</version>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>mockobjects</groupId>
@@ -246,7 +247,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.2</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 	</dependencies>
 
