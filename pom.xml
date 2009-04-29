@@ -74,9 +74,6 @@
 			</plugin>
 
 		</plugins>
-		<testSourceDirectory>
-			examples/src/test/java
-		</testSourceDirectory>
 	</build>
 
 
