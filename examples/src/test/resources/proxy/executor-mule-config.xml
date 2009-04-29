@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
+	xmlns:fix="http://www.mulesource.org/schema/mule/fix/2.2"
+	xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/fix/2.2 http://www.mulesource.org/schema/mule/fix/2.2/mule-fix.xsd
+       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd">
+
+	<fix:connector name="fixExecutorConnector" config="./examples/src/main/resources/proxy/executor.cfg" />
+
+	<fix:endpoint name="executor4.1" connector-ref="fixExecutorConnector"
+		sessionID="FIX.4.1:EXEC-BANZAI" />
+
+
+	<model name="fixExecutorMock">
+		<service name="ExecutorMock">
+			<inbound>
+				<fix:inbound-endpoint ref="executor4.1" />
+			</inbound>
+			<component class="org.mule.transport.fix.examples.mock.Executor">
+				<binding interface="org.mule.transport.fix.examples.mock.FixDispatcherInterface">
+					<fix:outbound-endpoint ref="executor4.1" />
+				</binding>
+			</component>
+		</service>
+
+	</model>
+</mule>

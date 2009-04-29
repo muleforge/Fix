@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:fix="http://www.mulesource.org/schema/mule/fix/2.2"
+	xsi:schemaLocation="
+       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesource.org/schema/mule/fix/2.2 http://www.mulesource.org/schema/mule/fix/2.2/mule-fix.xsd">
+
+	<fix:connector name="fixConnector"
+		config="./target/test-classes/org/mule/transport/fix/general/initiator-acceptor-in-same-config.cfg"
+		message-store-factory="quickfix.FileStoreFactory">
+		<!--
+			TODO Add connector specific properties here and then assert that they
+			have been set in org.mule.transport.fix.FixNamespaceHandlerTestCase
+		-->
+	</fix:connector>
+
+</mule>
