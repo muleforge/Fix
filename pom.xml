@@ -311,7 +311,7 @@
 			-->
 			<id>fix-deps</id>
 			<name>Fix Dependencies</name>
-			<url>http://dist.muleforge.org/mule-transport-fix/dependencies/maven2</url>
+			<url>http://dist.muleforge.org/fix/dependencies/maven2</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
