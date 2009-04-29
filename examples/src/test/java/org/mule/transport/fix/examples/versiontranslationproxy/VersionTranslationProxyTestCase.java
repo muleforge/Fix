@@ -55,7 +55,7 @@ public class VersionTranslationProxyTestCase extends FunctionalTestCase {
 
 	@Override
 	protected String getConfigResources() {
-		return "versiontranslationproxy/mule-config.xml,versiontranslationproxy/executor-mule-config.xml,versiontranslationproxy/vm-as-banzai-mule-config.xml";
+		return "examples/src/main/resources/versiontranslationproxy/mule-config.xml,examples/src/test/resources/versiontranslationproxy/executor-mule-config.xml,examples/src/test/resources/versiontranslationproxy/vm-as-banzai-mule-config.xml";
 	}
 
 }

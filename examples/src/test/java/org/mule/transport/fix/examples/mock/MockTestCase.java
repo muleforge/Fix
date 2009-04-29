@@ -55,7 +55,7 @@ public class MockTestCase extends FunctionalTestCase {
 
 	@Override
 	protected String getConfigResources() {
-		return "mock/executor-mule-config.xml,mock/vm-as-banzai-mule-config.xml";
+		return "examples/src/test/resources/mock/executor-mule-config.xml,examples/src/test/resources/mock/vm-as-banzai-mule-config.xml";
 	}
 
 }

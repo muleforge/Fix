@@ -55,7 +55,7 @@ public class ProxyTestCase extends FunctionalTestCase {
 
 	@Override
 	protected String getConfigResources() {
-		return "proxy/executor-mule-config.xml,proxy/mule-config.xml,proxy/vm-as-banzai-mule-config.xml";
+		return "examples/src/test/resources/proxy/executor-mule-config.xml,examples/src/main/resources/proxy/mule-config.xml,examples/src/test/resources/proxy/vm-as-banzai-mule-config.xml";
 	}
 
 }
