@@ -1,0 +1,49 @@
+<!--
+Assembly descriptor for the full distribution.
+-->
+<assembly>
+    <id>Fix</id>
+    <formats>
+        <format>zip</format>
+        <format>tar.gz</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>src</directory>
+            <outputDirectory>src</outputDirectory>
+        </fileSet>
+        <!-- If a licenses directory is present, copy it.  this would contain text files describing the licenses for each
+             non-Mule dependencies -->
+        <fileSet>
+            <directory>licenses</directory>
+            <outputDirectory>licenses</outputDirectory>
+        </fileSet>
+        <!-- Copy Examples -->
+        <fileSet>
+        	<directory>examples-dist</directory>
+        	<outputDirectory>examples/fix/bin</outputDirectory>
+        </fileSet>
+        <fileSet>
+        	<directory>examples/src/main/resources</directory>
+        	<outputDirectory>examples/fix/examples/src/main/resources</outputDirectory>
+        </fileSet>        
+    </fileSets>
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib/user</outputDirectory>
+            <scope>runtime</scope>
+            <!-- Include only the non-Mule libraries needed by your application -->
+            <includes>
+                <!-- Make sure we include this project's artifact -->
+                <include>org.mule.transports:mule-transport-fix</include>
+				
+                <!--
+                Add any 3rd party libraries here.  Note you can use wildcards i.e.
+                <include>net.sf.someproject:*</include>
+                -->
+                <include>quickfixj:*</include>
+                <include>org.apache.mina:mina-core</include>                
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>
