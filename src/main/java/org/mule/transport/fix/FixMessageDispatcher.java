@@ -57,13 +57,14 @@ public class FixMessageDispatcher extends AbstractMessageDispatcher {
 	}
 
 	public MuleMessage doSend(MuleEvent event) throws Exception {
-		// Quick fix is mainly asynchronous as far as i know and thus this
-		// method will throw an exception
-		throw new UnsupportedOperationException("doSend");
+		// Quick fix is mainly asynchronous and so the dispatch will be called
+		// and null returned
+		doDispatch(event);
+		return null;
 	}
 
 	public void doDispose() {
-		//nothing to dispose
+		// nothing to dispose
 	}
 
 }
