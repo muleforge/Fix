@@ -11,7 +11,7 @@
 	<description>Allows mule to send and receive messages using the</description>
 
 	<properties>
-		<mule.version>2.2.1</mule.version>
+		<mule.version>3.3-M2-SNAPSHOT</mule.version>
 		<!-- Tools properties -->
 		<eclipsePluginVersion>2.5</eclipsePluginVersion>
 		<vmtype>org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType</vmtype>
@@ -19,9 +19,11 @@
 		<jdk.version>1.5</jdk.version>
 		<buildhelperPluginVersion>1.1</buildhelperPluginVersion>
 		<!-- Dependency properties -->
-		<quickfixj.version>1.3.3</quickfixj.version>
+		<quickfixj.version>1.5.0-SNAPSHOT</quickfixj.version>
 		<mina.version>1.1.0</mina.version>
-	</properties>
+        <junit.version>4.9</junit.version>
+        <slf4j.version>1.6.1</slf4j.version>
+    </properties>
 
 	<build>
 		<plugins>
@@ -35,45 +37,20 @@
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/main/java</source>
-								<source>src/main/resources</source>
-								<source>examples/src/main/java</source>
-								<source>examples/src/main/resources</source>
-							</sources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>add-test-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/test/java</source>
-								<source>src/test/resources</source>
-								<source>examples/src/test/java</source>
-								<source>examples/src/test/resources</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
@@ -132,7 +109,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<configuration>
-					<configLocation>http://www.mulesource.org/docs/checkstyle.xml</configLocation>
+					<configLocation>http://www.mulesoft.org/docs/checkstyle.xml</configLocation>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -190,28 +167,8 @@
 		<!-- QuickFixJ dependencies -->
 		<dependency>
 			<groupId>quickfixj</groupId>
-			<artifactId>quickfixj-all</artifactId>
+			<artifactId>quickfixj-core</artifactId>
 			<version>${quickfixj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.mina</groupId>
-			<artifactId>mina-core</artifactId>
-			<version>${mina.version}</version>
-			<scope>runtime</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>easymock</groupId>
-					<artifactId>easymock</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<!-- Mule Dependencies -->
 		<!-- Mule Modules: You will need to add and remove as necessary -->
@@ -246,8 +203,24 @@
 			<scope>test</scope>
 		</dependency>
 
+        <!--Logging-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
 
-		<!-- for testing -->
+        <!-- for testing -->
 		<dependency>
 			<groupId>org.mule.tests</groupId>
 			<artifactId>mule-tests-functional</artifactId>
@@ -263,7 +236,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -271,7 +244,7 @@
 	<!-- Mule Forge Configuration -->
 	<issueManagement>
 		<system>Jira</system>
-		<url>http://www.mulesource.org/jira/browse/FIX</url>
+		<url>http://www.mulesoft.org/jira/browse/FIX</url>
 	</issueManagement>
 
 	<scm>

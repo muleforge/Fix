@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<xsd:schema xmlns="http://www.mulesource.org/schema/mule/fix/2.2"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:mule="http://www.mulesource.org/schema/mule/core/2.2"
-	xmlns:schemadoc="http://www.mulesource.org/schema/mule/schemadoc/2.2"
-	targetNamespace="http://www.mulesource.org/schema/mule/fix/2.2"
-	elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xsd:schema xmlns="http://www.mulesoft.org/schema/mule/fix"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:mule="http://www.mulesoft.org/schema/mule/core"
+            xmlns:schemadoc="http://www.mulesoft.org/schema/mule/schemadoc"
+            targetNamespace="http://www.mulesoft.org/schema/mule/fix"
+            elementFormDefault="qualified"
+            attributeFormDefault="unqualified">
 
-	<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
-	<xsd:import namespace="http://www.mulesource.org/schema/mule/core/2.2"
-		schemaLocation="http://www.mulesource.org/schema/mule/core/2.2/mule.xsd" />
-	<xsd:import namespace="http://www.mulesource.org/schema/mule/schemadoc/2.2"
-		schemaLocation="http://www.mulesource.org/schema/mule/schemadoc/2.2/mule-schemadoc.xsd" />
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:import namespace="http://www.mulesoft.org/schema/mule/core"
+                schemaLocation="http://www.mulesoft.org/schema/mule/core/3.2/mule.xsd"/>
+    <xsd:import namespace="http://www.mulesoft.org/schema/mule/schemadoc"
+                schemaLocation="http://www.mulesoft.org/schema/mule/schemadoc/3.2/mule-schemadoc.xsd"/>
 
-	<xsd:annotation>
+    <xsd:annotation>
 		<xsd:documentation>Allows mule to send and receive messages
 			using the</xsd:documentation>
 		<xsd:appinfo>
 			<schemadoc:short-name>Fix</schemadoc:short-name>
 			<schemadoc:page-title>Fix Transport</schemadoc:page-title>
 			<schemadoc:transport-features
-				receiveEvents="true" dispatchEvents="false" responseEvents="true"
-				requestEvents="false" transactions="false" streaming="false">
-				<schemadoc:inboundMEPs in-only="${receiver}"
-					in-optional-out="true" in-out="true" />
-				<schemadoc:outboundMEPs out-only="true"
-					out-in="true" out-optional-in="true" />
-			</schemadoc:transport-features>
+				receiveEvents="true" dispatchEvents="false"
+                requestEvents="false" transactions="false" streaming="false">
+				<schemadoc:MEPs supported="one-way" default="one-way"/>
+            </schemadoc:transport-features>
 		</xsd:appinfo>
 	</xsd:annotation>
 
-	<xsd:element name="connector" type="fixConnectorType"
-		substitutionGroup="mule:abstract-connector">
+	<xsd:element name="connector" type="fixConnectorType" substitutionGroup="mule:abstract-connector">
 		<xsd:annotation>
 			<xsd:documentation>
 				Allows mule to send and receive messages using the

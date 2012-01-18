@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesource.org/schema/mule/core/2.2"
+<mule xmlns="http://www.mulesoft.org/schema/mule/core/2.2"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:vm="http://www.mulesource.org/schema/mule/vm/2.2"
-       xmlns:fix="http://www.mulesource.org/schema/mule/fix/2.2"
+       xmlns:vm="http://www.mulesoft.org/schema/mule/vm/2.2"
+       xmlns:fix="http://www.mulesoft.org/schema/mule/fix/2.2"
     xsi:schemaLocation="
-       http://www.mulesource.org/schema/mule/core/2.2 http://www.mulesource.org/schema/mule/core/2.2/mule.xsd
-       http://www.mulesource.org/schema/mule/vm/2.2 http://www.mulesource.org/schema/mule/vm/2.2/mule-vm.xsd
-       http://www.mulesource.org/schema/mule/fix/2.2 http://www.mulesource.org/schema/mule/fix/2.2/mule-fix.xsd">
+       http://www.mulesoft.org/schema/mule/core/2.2 http://www.mulesoft.org/schema/mule/core/2.2/mule.xsd
+       http://www.mulesoft.org/schema/mule/vm/2.2 http://www.mulesoft.org/schema/mule/vm/2.2/mule-vm.xsd
+       http://www.mulesoft.org/schema/mule/fix/2.2 http://www.mulesoft.org/schema/mule/fix/2.2/mule-fix.xsd">
 
 	<vm:connector name="vmConnector" queueEvents="true"/>
 	<fix:connector name="fixConnector" config="./target/test-classes/org/mule/transport/fix/general/initiator-acceptor-in-same-config.cfg"/>

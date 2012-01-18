@@ -1,7 +1,7 @@
 /*
  * $Id$
  * --------------------------------------------------------------------------------------
- * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesource.com
+ * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -33,8 +33,7 @@ public class FixMessageDispatcher extends AbstractMessageDispatcher {
 
 		// TODO currently this is a bit brittle, for example if a name with a -
 		// is used it will mess things up. Possibly should prohibit the use of -
-		sessionID = new SessionID(endpoint.getEndpointURI().getAuthority()
-				.replace("-", "->"));
+		sessionID = new SessionID(endpoint.getEndpointURI().getAddress());
 
 	}
 
@@ -47,10 +46,12 @@ public class FixMessageDispatcher extends AbstractMessageDispatcher {
 	}
 
 	public void doDispatch(MuleEvent event) throws Exception {
-		logger.debug("Sending Message to Session:" + sessionID + ":"
-				+ event.getMessage().getPayload());
+        if (logger.isDebugEnabled()) {
+            logger.debug("Sending Message to Session:" + sessionID + ":"
+                    + event.getMessage().getPayload());
+        }
 
-		Message message = (Message) event.getMessage().getPayload();
+        Message message = (Message) event.getMessage().getPayload();
 		// getting session from the connector
 		((FixConnector) connector).lookupSession(sessionID).send(message);
 

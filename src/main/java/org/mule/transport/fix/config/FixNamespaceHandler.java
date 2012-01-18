@@ -1,7 +1,7 @@
 /*
  * $Id: NamespaceHandler.vm 10621 2008-01-30 12:15:16Z dirk.olmes $
  * --------------------------------------------------------------------------------------
- * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesource.com
+ * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -11,9 +11,12 @@ package org.mule.transport.fix.config;
 
 import org.mule.config.spring.factories.InboundEndpointFactoryBean;
 import org.mule.config.spring.factories.OutboundEndpointFactoryBean;
+import org.mule.config.spring.factories.QueueProfileFactoryBean;
 import org.mule.config.spring.handlers.AbstractMuleNamespaceHandler;
 import org.mule.config.spring.parsers.MuleDefinitionParser;
-import org.mule.config.spring.parsers.specific.TransformerDefinitionParser;
+//import org.mule.config.spring.parsers.specific.TransformerDefinitionParser;
+import org.mule.config.spring.parsers.generic.ChildDefinitionParser;
+import org.mule.config.spring.parsers.specific.MessageProcessorDefinitionParser;
 import org.mule.config.spring.parsers.specific.endpoint.TransportEndpointDefinitionParser;
 import org.mule.config.spring.parsers.specific.endpoint.TransportGlobalEndpointDefinitionParser;
 import org.mule.transport.fix.FixConnector;
@@ -40,11 +43,11 @@ public class FixNamespaceHandler extends AbstractMuleNamespaceHandler
 
         /* This will create the handler for your custom 'connector' element.  You will need to add handlers for any other
            xml elements you define.  For more information see:
-           http://www.mulesource.org/display/MULE2USER/Creating+a+Custom+XML+Namespace
+           http://www.mulesoft.org/display/MULE2USER/Creating+a+Custom+XML+Namespace
         */
         registerConnectorDefinitionParser(FixConnector.class);
         
-        registerBeanDefinitionParser("fix-version-transformer", new TransformerDefinitionParser(FixVersionTransformer.class));
+        registerBeanDefinitionParser("fix-version-transformer", new MessageProcessorDefinitionParser(FixVersionTransformer.class));
     }
     
     /**
