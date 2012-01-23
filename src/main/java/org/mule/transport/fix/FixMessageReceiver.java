@@ -13,6 +13,7 @@ package org.mule.transport.fix;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mule.api.MuleMessage;
 import org.mule.api.construct.FlowConstruct;
 import org.mule.transport.AbstractReceiverWorker;
 import org.mule.transport.ConnectException;
@@ -83,15 +84,15 @@ public class FixMessageReceiver extends AbstractMessageReceiver {
 
 		public FixWorker(Message message, SessionID sessionId,
 				AbstractMessageReceiver receiver) throws MessagingException {
-			super(new ArrayList(1), receiver);
+			super(new ArrayList<Object>(1), receiver);
 
 			this.sessionId = sessionId;
 			messages.add(message);
 		}
 
-		public FixWorker(List messages, SessionID sessionId,
+		public FixWorker(List<Object> messages, SessionID sessionId,
 				AbstractMessageReceiver receiver) throws MessagingException {
-			super(new ArrayList(messages), receiver);
+			super(new ArrayList<Object>(messages), receiver);
 			this.sessionId = sessionId;
 		}
 
@@ -101,19 +102,14 @@ public class FixMessageReceiver extends AbstractMessageReceiver {
 			//no transactions
 		}
 
-/*
 		@Override
-		protected Object preProcessMessage(Object message) throws Exception {
-			MessageAdapter adapter;
-			adapter = endpoint.getConnector().getMessageAdapter(message);
-			// TODO this session ID is being shared by more than 1 message,
-			// this could be a problem if the property is changed...
-			adapter
-					.setProperty(FixConstants.FIX_RECEIVED_SESSION_ID,
-							sessionId);
-			return adapter;
+        protected void preRouteMuleMessage(final MuleMessage message) throws Exception{
+            super.preRouteMuleMessage(message);
+
+			message.setOutboundProperty(FixConstants.FIX_RECEIVED_SESSION_ID, sessionId);
 		}
-*/
+
+
 	}
 
 }
