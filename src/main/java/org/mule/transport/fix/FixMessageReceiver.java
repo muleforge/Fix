@@ -1,7 +1,7 @@
 /*
  * $Id: MessageReceiver.vm 11079 2008-02-27 15:52:01Z tcarlson $
  * --------------------------------------------------------------------------------------
- * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesource.com
+ * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -13,6 +13,8 @@ package org.mule.transport.fix;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mule.api.MuleMessage;
+import org.mule.api.construct.FlowConstruct;
 import org.mule.transport.AbstractReceiverWorker;
 import org.mule.transport.ConnectException;
 import org.mule.transport.AbstractMessageReceiver;
@@ -23,7 +25,6 @@ import org.mule.api.lifecycle.CreateException;
 import org.mule.api.transaction.Transaction;
 import org.mule.api.transaction.TransactionException;
 import org.mule.api.transport.Connector;
-import org.mule.api.transport.MessageAdapter;
 
 import quickfix.FieldNotFound;
 import quickfix.IncorrectDataFormat;
@@ -38,9 +39,9 @@ import quickfix.UnsupportedMessageType;
  */
 public class FixMessageReceiver extends AbstractMessageReceiver {
 
-	public FixMessageReceiver(Connector connector, Service service,
-			InboundEndpoint endpoint) throws CreateException {
-		super(connector, service, endpoint);
+    public FixMessageReceiver(Connector connector, FlowConstruct flowConstruct, InboundEndpoint endpoint)
+            throws CreateException {
+		super(connector, flowConstruct, endpoint);
 	}
 
 	public void doConnect() throws ConnectException {
@@ -73,7 +74,7 @@ public class FixMessageReceiver extends AbstractMessageReceiver {
 			getWorkManager().scheduleWork(
 					new FixWorker(message, sessionId, this));
 		} catch (Exception e) {
-			handleException(e);
+//			handleException(e);
 		}
 
 	}
@@ -83,15 +84,15 @@ public class FixMessageReceiver extends AbstractMessageReceiver {
 
 		public FixWorker(Message message, SessionID sessionId,
 				AbstractMessageReceiver receiver) throws MessagingException {
-			super(new ArrayList(1), receiver);
+			super(new ArrayList<Object>(1), receiver);
 
 			this.sessionId = sessionId;
 			messages.add(message);
 		}
 
-		public FixWorker(List messages, SessionID sessionId,
+		public FixWorker(List<Object> messages, SessionID sessionId,
 				AbstractMessageReceiver receiver) throws MessagingException {
-			super(new ArrayList(messages), receiver);
+			super(new ArrayList<Object>(messages), receiver);
 			this.sessionId = sessionId;
 		}
 
@@ -102,16 +103,13 @@ public class FixMessageReceiver extends AbstractMessageReceiver {
 		}
 
 		@Override
-		protected Object preProcessMessage(Object message) throws Exception {
-			MessageAdapter adapter;
-			adapter = endpoint.getConnector().getMessageAdapter(message);
-			// TODO this session ID is being shared by more than 1 message,
-			// this could be a problem if the property is changed...
-			adapter
-					.setProperty(FixConstants.FIX_RECEIVED_SESSION_ID,
-							sessionId);
-			return adapter;
+        protected void preRouteMuleMessage(final MuleMessage message) throws Exception{
+            super.preRouteMuleMessage(message);
+
+			message.setOutboundProperty(FixConstants.FIX_RECEIVED_SESSION_ID, sessionId);
 		}
+
+
 	}
 
 }

@@ -2,7 +2,6 @@ package org.mule.transport.fix.functional;
 
 import org.mule.api.MuleMessage;
 import org.mule.module.client.MuleClient;
-import org.mule.tck.FunctionalTestCase;
 
 import quickfix.field.ClOrdID;
 import quickfix.field.OrigClOrdID;
@@ -10,10 +9,14 @@ import quickfix.field.Side;
 import quickfix.field.Symbol;
 import quickfix.field.Text;
 
-public class AsynchVersionTransformationTestCase extends FunctionalTestCase {
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+
+public class AsynchVersionTransformationTestCase extends org.mule.tck.junit4.FunctionalTestCase {
 
 	public void testExecutorConfig() throws Exception {
-		MuleClient client = new MuleClient();
+		MuleClient client = new MuleClient(muleContext);
 
 		quickfix.fix41.OrderCancelRequest message = new quickfix.fix41.OrderCancelRequest(
 				new OrigClOrdID("123"), new ClOrdID("321"), new Symbol("LNUX"),

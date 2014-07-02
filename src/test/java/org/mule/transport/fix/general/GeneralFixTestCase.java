@@ -59,7 +59,7 @@ Application{
 	{
 		ConfigError configError=null;
 
-		SessionSettings settings = new SessionSettings(new FileInputStream("./target/test-classes/org/mule/transport/fix/general/banzai.cfg"));
+		SessionSettings settings = new SessionSettings(getClass().getResourceAsStream("/org/mule/transport/fix/general/banzai.cfg"));
 		testCheckingSessionTypes(settings,1,0);
 		MessageStoreFactory storeFactory = new FileStoreFactory(settings);
 		//LogFactory logFactory = new FileLogFactory(settings);

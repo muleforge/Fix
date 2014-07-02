@@ -1,7 +1,7 @@
 /*
  * $Id$
  * --------------------------------------------------------------------------------------
- * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesource.com
+ * Copyright (c) MuleSource, Inc.  All rights reserved.  http://www.mulesoft.com
  *
  * The software in this package is published under the terms of the CPAL v1.0
  * license, a copy of which has been included with this distribution in the
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.mule.api.MuleContext;
 import org.mule.api.MuleException;
 import org.mule.api.endpoint.InboundEndpoint;
 import org.mule.api.lifecycle.InitialisationException;
@@ -66,7 +67,11 @@ public class FixConnector extends AbstractConnector implements Application {
 	private String messageStoreFactory = "quickfix.MemoryStoreFactory";
 	private String logFactory = "";
 
-	public void doInitialise() throws InitialisationException {
+    public FixConnector(MuleContext context) {
+        super(context);
+    }
+
+    public void doInitialise() throws InitialisationException {
 		if (config != "") {
 
 			int initiatorCount = 0;
